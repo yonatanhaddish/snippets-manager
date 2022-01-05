@@ -1,5 +1,8 @@
 const express= require('express');
 const mongoose= require('mongoose');
+const dotenv= require("dotenv");
+
+dotenv.config();
 
 // setup express server
 const app= express();
@@ -12,7 +15,7 @@ app.listen(5000, () => console.log("Server started on port 5000"));
 app.use("/snippet", require("./routers/snippetRouter"));
 
 // connect to mongoDB
-mongoose.connect("mongodb+srv://devistry:snippetManager@cluster0.pw9zf.mongodb.net/mySnippetDatabase?retryWrites=true&w=majority",{
+mongoose.connect(process.env.MDB_CONNECT_STRING,{
     useNewUrlParser: true,
     useUnifiedTopology: true
 }, (err) => {
