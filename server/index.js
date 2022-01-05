@@ -21,6 +21,3 @@ mongoose.connect("mongodb+srv://devistry:snippetManager@cluster0.pw9zf.mongodb.n
 })
 
 
-// m001-student m001-mongodb-basics
-// mongodb+srv://devistry:<password>@cluster0.pw9zf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
-// mongodb+srv://database-01:071780yonihiiD1@cluster0.pijir.mongodb.net/database-02?retryWrites=true&w=majority
