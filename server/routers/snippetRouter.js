@@ -1,13 +1,15 @@
 const router= require("express").Router();
+const Snippet= require("../models/snippetModel");
 
 router.post("/", (req, res) => {
-    const body= req.body;
-    console.log(body);
-})
+    const {title, description, code}= req.body;
 
-router.get("/", (req, res) => {
-    const body= req.body;
-    res.send(body)
+    const newSnippet= new Snippet({
+        title, description, code
+    });
+
+    newSnippet.save();
+    
 })
 
 module.exports= router; 
