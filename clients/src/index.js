@@ -1,18 +1,20 @@
 import React from "react";
 import ReactDom from "react-dom";
 
-function Welcome(props) {
+function App() {
+    function sendData(e) {
+        e.preventDefault();
+        console.log("Sending Data");
+    }
+    return (
+     <>
+        <form onSubmit={sendData}>
+            <input type="text" placeholder="Username"/>
+            <input type="password" placeholder="Password" />
+            <button type="submit">Log In</button>
+        </form>
+    </>
+)};
 
-    return <h1>Welcome {props.user} to this site.</h1>
-};
-
-    const el= (
-        <div>
-            <Welcome user="Jane Doe" />
-            <Welcome user="Peter Doe" />
-            <Welcome user="Jane Doe" />
-        </div>
-    );
-
-    ReactDom.render(el, document.getElementById("root"));
+ReactDom.render(<App />, document.getElementById("root"));
 
