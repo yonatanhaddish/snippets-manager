@@ -13,30 +13,45 @@ function Home() {
     getSnippet();
   }, []);
 
-//   GET snippet
+  //   GET snippet
   async function getSnippet() {
     const snippetsRes = await Axios.get("http://localhost:5000/snippet/");
     setSnippets(snippetsRes.data);
   }
 
-//   RENDER snippet into Snippet component
+  //   RENDER snippet into Snippet component
   function renderSnippets() {
-    return snippets.map((snippet, i) => {
+      let sortedSnippet= [...snippets];
+      sortedSnippet= sortedSnippet.sort((a,b) => {
+          return new Date(b.createdAt) - new Date(a.createdAt);
+      })
+    return sortedSnippet.map((snippet, i) => {
       return <Snippet snippet={snippet} key={i} />;
     });
   }
 
-//   POST snippet
+  //   POST snippet
   async function saveSnippets(e) {
-      e.preventDefault();
+    e.preventDefault();
 
-      const snippetData= {
-          title: editorTitle ? editorTitle : undefined,
-          description: editorDescription ? editorDescription : undefined,
-          code: editorCode ? editorCode : undefined
-      }
+    const snippetData = {
+      title: editorTitle ? editorTitle : undefined,
+      description: editorDescription ? editorDescription : undefined,
+      code: editorCode ? editorCode : undefined,
+    };
 
-      await Axios.post("http://localhost:5000/snippet/", snippetData)
+    await Axios.post("http://localhost:5000/snippet/", snippetData);
+
+    getSnippet();
+    closeEditor();
+  }
+
+//   CLOSE the Editor
+  function closeEditor() {
+    setNewSnippetEditorOpen(false);
+    setEditorTitle("");
+    setEditorDescription("");
+    setEditorCode("");
   }
 
   return (
@@ -72,6 +87,9 @@ function Home() {
               onChange={(e) => setEditorCode(e.target.value)}
             />
             <button type="submit">Save Snippet</button>
+            <button type="button" onClick={closeEditor}>
+              Cancel
+            </button>
           </form>
         </div>
       )}
