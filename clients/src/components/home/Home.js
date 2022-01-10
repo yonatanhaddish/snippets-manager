@@ -6,6 +6,7 @@ import Axios from "axios";
 function Home() {
   const [snippets, setSnippets] = useState([]);
   const [newSnippetEditorOpen, setNewSnippetEditorOpen] = useState(false);
+  const [editSnippetData, setEditSnippetData] = useState(null);
 
   useEffect(() => {
     getSnippet();
@@ -24,8 +25,21 @@ function Home() {
       return new Date(b.createdAt) - new Date(a.createdAt);
     });
     return sortedSnippet.map((snippet, i) => {
-      return <Snippet snippet={snippet} key={i} getSnippet={getSnippet}/>;
+      return (
+        <Snippet
+          snippet={snippet}
+          key={i}
+          getSnippet={getSnippet}
+          editSnippet={editSnippet}
+          setEditSnippetData={setNewSnippetEditorOpen}
+        />
+      );
     });
+  }
+
+  function editSnippet(snippetData) {
+    setEditSnippetData(snippetData);
+    setNewSnippetEditorOpen(true);
   }
 
   return (
@@ -39,6 +53,8 @@ function Home() {
         <SnippetEditor
           setNewSnippetEditorOpen={setNewSnippetEditorOpen}
           getSnippet={getSnippet}
+          editSnippetData={editSnippetData}
+          setEditSnippetData={setNewSnippetEditorOpen}
         />
       )}
 
