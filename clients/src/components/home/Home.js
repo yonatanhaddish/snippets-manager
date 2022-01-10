@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Snippet from "./Snippet";
 import SnippetEditor from "./SnippetEditor";
-const Axios = require("axios");
+import Axios from "axios";
 
 function Home() {
   const [snippets, setSnippets] = useState([]);
@@ -24,7 +24,7 @@ function Home() {
       return new Date(b.createdAt) - new Date(a.createdAt);
     });
     return sortedSnippet.map((snippet, i) => {
-      return <Snippet snippet={snippet} key={i} />;
+      return <Snippet snippet={snippet} key={i} getSnippet={getSnippet}/>;
     });
   }
 

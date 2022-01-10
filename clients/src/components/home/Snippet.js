@@ -1,6 +1,15 @@
 import React from "react";
+import Axios from "axios";
 
-function Snippet({ snippet }) {
+function Snippet({ snippet, getSnippet }) {
+
+  async function deleteSnippet() {
+    
+    await Axios.delete(`http://localhost:5000/snippet/${snippet._id}`);
+
+    getSnippet();
+  }
+
   return (
     <div className="snippet">
       {snippet.title && <h2>{snippet.title}</h2>}
@@ -10,6 +19,7 @@ function Snippet({ snippet }) {
           <code>{snippet.code}</code>
         </pre>
       )}
+      <button type="submit" onClick={deleteSnippet}>Delete</button>
     </div>
   );
 }
