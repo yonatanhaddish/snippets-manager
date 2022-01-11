@@ -1,4 +1,5 @@
 @import "./variables.scss";
+@import "./mixins.scss";
 * {
   margin: 0;
   padding: 0;
@@ -25,4 +26,12 @@ button {
     font: unset;
     color: unset;
     cursor: pointer;
+}
+
+// reset links
+a {
+  color: unset;
+  text-decoration: unset;
+
+  @include lnk();
 }
