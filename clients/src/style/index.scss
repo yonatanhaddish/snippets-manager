@@ -35,3 +35,11 @@ a {
 
   @include lnk();
 }
+
+// reset input, textarea
+input, textarea {
+  color: unset;
+  background: unset;
+  font: unset;
+  border: unset;
+}
