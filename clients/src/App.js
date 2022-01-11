@@ -1,11 +1,13 @@
-import React from 'react';
-// import ReactDOM from 'react-dom';
-import Router from './Router';
+import React from "react";
+import Router from "./Router";
+import "../src/style/index.scss";
 
 function App() {
-    return (
-        <Router />
-    )
+  return (
+    <div className="container">
+      <Router />
+    </div>
+  );
 }
 
 export default App;

@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
 
-function SnippetEditor({
-  setNewSnippetEditorOpen,
-  getSnippet,
-  editSnippetData,
-}) {
+function SnippetEditor({setNewSnippetEditorOpen, getSnippet, editSnippetData}) {
   const [editorTitle, setEditorTitle] = useState("");
   const [editorDescription, setEditorDescription] = useState("");
   const [editorCode, setEditorCode] = useState("");
@@ -32,7 +28,10 @@ function SnippetEditor({
     if (!editSnippetData)
       await Axios.post("http://localhost:5000/snippet/", snippetData);
     else
-      await Axios.put(`http://localhost:5000/snippet/${editSnippetData._id}`, snippetData);
+      await Axios.put(
+        `http://localhost:5000/snippet/${editSnippetData._id}`,
+        snippetData
+      );
 
     getSnippet();
     closeEditor();

@@ -37,6 +37,7 @@ function Home() {
     });
   }
 
+  // EDIT snippet
   function editSnippet(snippetData) {
     setEditSnippetData(snippetData);
     setNewSnippetEditorOpen(true);
