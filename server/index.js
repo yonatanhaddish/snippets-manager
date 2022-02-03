@@ -17,6 +17,7 @@ app.listen(5000, () => console.log("Server started on port 5000"));
 
 // set up routers
 app.use("/snippet", require("./routers/snippetRouter"));
+app.use("/auth", require("./routers/userRouter"));
 
 // connect to mongoDB
 mongoose.connect(process.env.MDB_CONNECT_STRING,{
