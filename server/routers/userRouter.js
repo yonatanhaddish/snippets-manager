@@ -1,70 +1,73 @@
-const router= require('express').Router();
+const router = require("express").Router();
 
-const User = require('../models/userModal');
-const bcrypt= require('bcryptjs');
-const jwt= require('jsonwebtoken');
-const auth = require('../middleware/auth');
+const User = require("../models/userModal");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const auth = require("../middleware/auth");
 
 router.post("/", async (req, res) => {
-    try {
-        const { email, password, passwordVerify }= req.body;
+  try {
+    const { email, password, passwordVerify } = req.body;
 
-        if (!email || !password || !passwordVerify)
-            return res.status(400).json({errorMessage: 'Please enter all required fields'});
+    if (!email || !password || !passwordVerify)
+      return res
+        .status(400)
+        .json({ errorMessage: "Please enter all required fields" });
 
-        if (password.length <6 || passwordVerify.length < 6)
-            return res.status(400).json({errorMessage: 'Password must be atleast 6 characters in length'});
+    if (password.length < 6 || passwordVerify.length < 6)
+      return res
+        .status(400)
+        .json({
+          errorMessage: "Password must be atleast 6 characters in length",
+        });
 
-        if (password !== passwordVerify)
-            return res.status(400).json({errorMessage: 'Password and passwordVerify must be exactly the same'});
+    if (password !== passwordVerify)
+      return res
+        .status(400)
+        .json({
+          errorMessage: "Password and passwordVerify must be exactly the same",
+        });
 
-        const existingUser= await User.findOne({email});
-            
-        if (existingUser)
-            return res.status(400).json({errorMessage: 'An account with this email already exists'});
+    const existingUser = await User.findOne({ email });
 
-        const salt= await bcrypt.genSalt();
-        const passwordHash= await bcrypt.hash(password, salt);
+    if (existingUser)
+      return res
+        .status(400)
+        .json({ errorMessage: "An account with this email already exists" });
 
-        const newUser= new User({email, passwordHash});
-        
-        const savedUser= await newUser.save();
+    const salt = await bcrypt.genSalt();
+    const passwordHash = await bcrypt.hash(password, salt);
 
-        res.json(savedUser);
+    const newUser = new User({ email, passwordHash });
 
-        const token = jwt.sign({
-            id: savedUser._id
-        }, process.env.JWT_SECRET);
+    const savedUser = await newUser.save();
 
-        res.cookie('token', token, {httpOnly: true});
-        // res.send(token)
-        // res.json(token);
-        // console.log(token);
-    }
+    // res.json(savedUser);
 
+    const token = jwt.sign(
+      {
+        id: savedUser._id,
+      },
+      process.env.JWT_SECRET
+    );
 
-    catch(err) {
-        res.status(500).send();
-    }
+    res.cookie("token", token, { httpOnly: true }).send();
+    // res.send(token)
+    // res.status(token);
+    // res.json(token);
+    // console.log(token);
+  } catch (err) {
+    res.status(500).send();
+  }
 });
 
-router.get('/', async (req, res) => {
-    try {
-        const users= await User.find();
-        res.json(users);
-        
-    }
-    catch(err) {
-        res.status(500).send();
-    }
+router.get("/", async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (err) {
+    res.status(500).send();
+  }
 });
 
-
-
-
-
-
-
-
-
-module.exports= router;
+module.exports = router;

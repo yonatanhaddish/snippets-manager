@@ -5,8 +5,9 @@ const auth= require("../middleware/auth");
 // get all snippets
 router.get("/", auth, async (req, res) => {
     try {
-        const snippets= await Snippet.find({user: req.user});
+        const snippets= await Snippet.find();
         res.json(snippets);
+        console.log(req.user);
     }
     catch(err) {
         res.status(500).send();
@@ -25,6 +26,11 @@ router.post("/", auth, async (req, res) => {
             title, description, code, user: req.user
         });
         
+        // console.log(title);
+        // console.log(description);
+        // console.log(code);
+        // console.log("user");
+        // console.log(newSnippet);
         const savedSnippet= await newSnippet.save();
 
         res.json(savedSnippet);
@@ -35,7 +41,7 @@ router.post("/", auth, async (req, res) => {
 });
 
 // delete snippet by a specific Id
-router.delete("/:id", auth, async (req,res) => {
+router.delete("/:id", async (req,res) => {
     try {
         const snippetId= req.params.id;
         
@@ -60,7 +66,7 @@ router.delete("/:id", auth, async (req,res) => {
 });
 
 // update a snippet by a specific Id
-router.put("/:id", auth, async (req, res) => {
+router.put("/:id", async (req, res) => {
     try {
         const {title, description,code}= req.body;
         const snippetId= req.params.id;
