@@ -2,7 +2,7 @@ const jwt= require('jsonwebtoken');
 
 function auth(req, res, next) {
     try {
-        const token= req.cookies.token;
+        const token= req.cookie.token;
         console.log(token);
 
         if (!token) 
@@ -13,7 +13,7 @@ function auth(req, res, next) {
         next();
     }
     catch(err) {
-        res.status(401).json({errorMessage: 'Unauthorized.'});
+        res.status(401).json({errorMessage: 'Unauthorizedkkks.'});
     }
 }
 

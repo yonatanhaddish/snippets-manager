@@ -37,8 +37,9 @@ router.post("/", async (req, res) => {
         }, process.env.JWT_SECRET);
 
         res.cookie('token', token, {httpOnly: true});
-        res.send(token)
-
+        // res.send(token)
+        // res.json(token);
+        // console.log(token);
     }
 
 
@@ -51,6 +52,7 @@ router.get('/', async (req, res) => {
     try {
         const users= await User.find();
         res.json(users);
+        
     }
     catch(err) {
         res.status(500).send();
