@@ -17,7 +17,6 @@ const Register = () => {
       }
 
       await Axios.post("http://localhost:5000/auth/", registerData);
-    console.log(registerData);
   };
 
   return (
