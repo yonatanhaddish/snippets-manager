@@ -1,0 +1,25 @@
+.form {
+    label, input, textarea {
+        display: block;
+    }
+
+    input, textarea {
+        width: 100%;
+        margin-bottom: 1rem;
+        background: var(--dark-color);
+        padding: 0.3rem 0.5rem;
+        border-radius: 5px;
+    }
+
+    label {
+        margin-bottom: 0.5rem;
+        font-size: 1.3rem;
+        font-weight: bold;
+    }
+
+    textarea {
+        height: 200px;
+        resize: none;
+    }
+
+}

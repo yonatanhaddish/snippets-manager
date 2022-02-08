@@ -48,7 +48,7 @@ function SnippetEditor({setNewSnippetEditorOpen, getSnippet, editSnippetData}) {
 
   return (
     <div className="snippet-editor">
-      <form onSubmit={saveSnippets}>
+      <form className="form" onSubmit={saveSnippets}>
         <label htmlFor="editor-title">Title</label>
         <input
           id="editor-title"
