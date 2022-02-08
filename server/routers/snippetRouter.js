@@ -5,9 +5,9 @@ const auth= require("../middleware/auth");
 // get all snippets
 router.get("/", auth, async (req, res) => {
     try {
-        const snippets= await Snippet.find();
+        const snippets= await Snippet.find({user: req.user});
         res.json(snippets);
-        console.log(req.user);
+        // console.log(req.user);
     }
     catch(err) {
         res.status(500).send();
