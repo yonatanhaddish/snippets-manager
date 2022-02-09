@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Snippet from "./Snippet";
 import SnippetEditor from "./SnippetEditor";
 import Axios from "axios";
 import "./Home.scss";
+import UserContext from "../../context/UserContext";
 
 function Home() {
   const [snippets, setSnippets] = useState([]);
   const [newSnippetEditorOpen, setNewSnippetEditorOpen] = useState(false);
   const [editSnippetData, setEditSnippetData] = useState(null);
+
+  const user= useContext(UserContext);
 
   useEffect(() => {
     getSnippet();
@@ -45,8 +48,8 @@ function Home() {
   }
 
   return (
-    <div className="home">
-      {!newSnippetEditorOpen && (
+    <div className="home"> 
+      {!newSnippetEditorOpen && user && (
         <button className="btn-editor-toggle" onClick={() => setNewSnippetEditorOpen(true)}>
           Add Snippet
         </button>
