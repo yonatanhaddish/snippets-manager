@@ -52,12 +52,9 @@ router.post("/", async (req, res) => {
     );
 
     res.cookie("token", token, { httpOnly: true }).send();
-    // res.send(token)
-    // res.status(token);
-    // res.json(token);
-    // console.log(token);
-  } catch (err) {
-    res.status(500).send();
+  } 
+    catch (err) {
+      res.status(500).send();
   }
 });
 
@@ -70,7 +67,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/login", async(req, res) => {
+router.post("/login", async (req, res) => {
   try {
     const { email, password }= req.body;
 
@@ -86,9 +83,17 @@ router.post("/login", async(req, res) => {
     if (!correctPassword)
       return res.status(401).json({errorMessage: 'Wrong email or password.'});
 
-    const token= jwt.sign({id: existingUser._id}, process.env.JWT_SECRET);
+    const token= jwt.sign(
+      {
+        id: existingUser._id,
+      }, 
+      process.env.JWT_SECRET
+      );
+      // res.json(existingUser)
+      res.json({token, existingUser})
 
-    res.cookie("token", token, {httpOnly: true}).send();
+     return res.cookie("token", token, {httpOnly: true}).send();
+    
   }
   catch (err) {
     res.status(500).send();
@@ -104,7 +109,8 @@ router.get("/loggedIn", (req, res) => {
 
     const validatedUser= jwt.verify(token, process.env.JWT_SECRET);
 
-    res.json(validatedUser.id);
+    // res.json(validatedUser.id);
+    res.json({token, validatedUser});
   }
   catch (err) {
     return res.json(null);

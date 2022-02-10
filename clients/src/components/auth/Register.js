@@ -1,12 +1,14 @@
-import Axios  from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import Axios  from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import "../auth/AuthForm.scss";
 
 const Register = () => {
   const [formEmail, setFormEmail] = useState("");
   const [formPassword, setFormPassword] = useState("");
   const [formPasswordVerify, setFormPasswordVerify] = useState("");
+
+  const navigate= useNavigate();
 
   async function register(e) {
       e.preventDefault();
@@ -18,6 +20,8 @@ const Register = () => {
       }
 
       await Axios.post("http://localhost:5000/auth/", registerData);
+
+      navigate("/");
   };
 
   return (

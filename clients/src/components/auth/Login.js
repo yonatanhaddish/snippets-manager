@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import Axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../auth/AuthForm.scss";
+
 
 const Login = () => {
   const [formEmail, setFormEmail] = useState("");
   const [formPassword, setFormPassword] = useState("");
+
+  const navigate= useNavigate();
 
   async function login(e) {
       e.preventDefult();
@@ -14,12 +17,16 @@ const Login = () => {
           email: formEmail,
           password: formPassword
       };
-
+console.log("111");
       await Axios.post("http://localhost:5000/auth/login/", loginData);
+      console.log("222");
+      
+      navigate('/');
+      console.log("333");
   };
 
   return (
-    <div className="auth-form">
+    <div className="auth-form" onSubmit={login}>
       <h2>Log in</h2>
       <form className="form">
         <label htmlFor="form-email">Email</label>
@@ -36,7 +43,7 @@ const Login = () => {
           value={formPassword}
           onChange={(e) => setFormPassword(e.target.value)}
         />
-        <button className="btn-submit" type="submit" onClick={login}>Log in</button>
+        <button className="btn-submit" type="submit">Log in</button>
       </form>
       <p>Dont have an account? <Link to='/register'>Register instead</Link></p>
     </div>

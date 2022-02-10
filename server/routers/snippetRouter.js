@@ -7,7 +7,6 @@ router.get("/", auth, async (req, res) => {
     try {
         const snippets= await Snippet.find({user: req.user});
         res.json(snippets);
-        // console.log(req.user);
     }
     catch(err) {
         res.status(500).send();
@@ -51,9 +50,12 @@ router.delete("/:id", auth, async (req,res) => {
         if (existingSnippet.user.toString() !== req.user)
             return res.status(401).json({errorMessage: 'Unauthorized.'});
 
-        await existingSnippet.delete();
+        // res.json(req.user);
+        res.json(existingSnippet.user.toString());
+        // await existingSnippet.delete();
         
-        res.json(existingSnippet);
+        // res.json(existingSnippet);
+        
     }
     catch(err) {
         res.status(500).send();
