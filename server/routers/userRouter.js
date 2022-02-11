@@ -3,7 +3,7 @@ const router = require("express").Router();
 const User = require("../models/userModal");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const auth = require("../middleware/auth");
+// const auth = require("../middleware/auth");
 
 router.post("/", async (req, res) => {
   try {
@@ -89,11 +89,9 @@ router.post("/login", async (req, res) => {
       }, 
       process.env.JWT_SECRET
       );
-      // res.json(existingUser)
-      res.json({token, existingUser})
-
-     return res.cookie("token", token, {httpOnly: true}).send();
-    
+      res.cookie("token", token, {httpOnly: true}).send();
+      res.json(existingUser)
+      // res.json({token, existingUser}) 
   }
   catch (err) {
     res.status(500).send();

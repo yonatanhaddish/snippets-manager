@@ -18,7 +18,7 @@ const Login = () => {
           password: formPassword
       };
 console.log("111");
-      await Axios.post("http://localhost:5000/auth/login/", loginData);
+      // await Axios.post("http://localhost:5000/auth/login/", loginData);
       console.log("222");
       
       navigate('/');
